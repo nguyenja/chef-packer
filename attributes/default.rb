@@ -1,5 +1,5 @@
-node.default['packer']['url_base'] = 'https://dl.bintray.com/mitchellh/packer'
-node.default['packer']['version'] = '0.5.1'
+node.default['packer']['url_base'] = 'https://releases.hashicorp.com/packer'
+node.default['packer']['version'] = '0.10.0'
 node.default['packer'][node.default['packer']['version']]['prefix'] = ''
 node.default['packer']['arch'] = kernel['machine'] =~ /x86_64/ ? "amd64" : "386"
 
@@ -69,7 +69,13 @@ node.default['packer']['0.8.6']['raw_checksums'] = <<-EOF
     786503f2ffe658c1b318af227eabb8c10f3f425608ad4ef709206757931b7eee  packer_0.8.6_windows_amd64.zip
 EOF
 
-
+node.default['packer']['0.10.0']['prefix'] = "packer_"
+node.default['packer']['0.10.0']['raw_checksums'] = <<-EOF
+    6506319ce34cea3a53bd3c1075f7dd8883ea89ebfcc13214d87d1513f2ada0c6  packer_0.10.0_darwin_386.zip
+    cb1d9768306466d566abc79d83911983ace6a9a6c0a6657dc7eaab03cabd2e21  packer_0.10.0_darwin_amd64.zip
+    0d2460f645e73e070cb203e540b64624027f27d82268f7d939898af1c358abaf  packer_0.10.0_linux_386.zip
+    eadd33bc0f8fa42034059fc1cda5f43ed6f540746e767480f0706ebed49b45e5  packer_0.10.0_linux_amd64.zip
+EOF
 
 node.default['packer']['checksums'] = Hash[
     node['packer'][node['packer']['version']]['raw_checksums'].split("\n").collect { |s| s.split.reverse }
@@ -80,4 +86,3 @@ node.default['packer']['dist_filename'] = filename
 node.default['packer']['checksum'] = node['packer']['checksums'][filename]
 
 puts "filename : [#{filename}]"
-
